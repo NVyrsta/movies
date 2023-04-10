@@ -45,7 +45,7 @@ export default {
 
     onBeforeMount(async () => {
       const response = await fetch(
-        `http://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`
+        `https://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`
       );
       const data = await response.json();
       movie.value = data;
