@@ -29,7 +29,7 @@ export default createStore({
       if (query.trim() !== '') {
         try {
           const response = await fetch(
-            `http://www.omdbapi.com/?apikey=${env.apikey}&s=${query}`
+            `https://www.omdbapi.com/?apikey=${env.apikey}&s=${query}`
           );
           const data = await response.json();
           commit('setMovies', data.Search);
