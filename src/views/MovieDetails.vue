@@ -1,6 +1,6 @@
 <template>
   <button>
-    <router-link to="/">BACK</router-link>
+    <router-link to="/" class="router-link-button">Back</router-link>
   </button>
   <div class="movie-details">
     <div class="movie-details__content">
@@ -63,7 +63,7 @@ export default {
   margin: 0 auto;
   color: #fff;
   line-height: 1.5;
-  padding: 20px 20px;
+  padding: 100px 20px 20px;
   // .movie-details__content
 
   &__content {

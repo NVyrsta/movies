@@ -8,7 +8,7 @@
         v-model="query"
         class="search-form__input"
       />
-      <input type="submit" value="Search" class="search-form__button"/>
+      <input type="submit" value="Search" class="search-form__button" />
     </form>
     <button class="router-link-button">
       <router-link to="/favorites">Go to Favorites</router-link>
@@ -18,14 +18,26 @@
         <div class="movie" v-for="movie in movies" :key="movie.imdbID">
           <div class="movie__img-container">
             <router-link :to="'/movie/' + movie.imdbID" class="movie__link">
-              <img :src="movie.Poster" :alt="movie.Title + ' poster'" />
+              <img
+                v-if="movie.Poster !== 'N/A'"
+                :src="movie.Poster"
+                :alt="movie.Title + ' poster'"
+              />
+              <img
+                v-else
+                src="../assets/images/cinema-hero-img.jpg"
+                :alt="movie.Title + ' poster'"
+              />
             </router-link>
-            <button @click="$store.commit('toggleFavorites', movie)">
+            <button
+              class="toggle-btn"
+              @click="$store.commit('toggleFavorites', movie)"
+            >
               Add to Favorites
             </button>
           </div>
-            <p class="movie__year">{{ movie.Year }}</p>
-            <h3 class="movie__title">{{ movie.Title }}</h3>
+          <p class="movie__year">{{ movie.Year }}</p>
+          <h3 class="movie__title">{{ movie.Title }}</h3>
         </div>
       </div>
     </div>
@@ -105,6 +117,24 @@ export default {
 </script>
 
 <style lang="scss">
+.router-link-button {
+  position: absolute;
+  top: 60px;
+  padding: 20px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 18px;
+
+  &::before {
+    content: '←';
+    width: 20px;
+    height: 20px;
+  }
+  & a {
+    color: inherit;
+  }
+}
 .home {
   padding: 20px;
 }
@@ -115,51 +145,49 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 40px;
-  
+
   // .search-form__input
-  
+
   &__input {
-      display: block;
-      width: 60%;
-      height: 30px;
-      margin-right: 10px;
+    display: block;
+    width: 60%;
+    height: 40px;
+    margin-right: 10px;
+    outline: none;
+    padding: 6px 16px;
+    font-size: 20px;
 
-      &::placeholder {
-        padding: 6px 16px;
-      }
-		}
+    &::placeholder {
+      padding: 6px 16px;
+    }
+  }
 
-		// .search-form__button
+  // .search-form__button
 
-		&__button {
-            height: 30px;
-            padding: 6px 16px;
-
-		}
+  &__button {
+    height: 40px;
+    padding: 6px 16px;
+  }
 }
 .movies {
-  padding: 20px;
-
+  padding: 100px 20px 20px;
 }
 .movies__list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 250px;
   justify-content: center;
   // align-items: center;
   gap: 20px;
 
-  @media screen and (min-width: 768px) {
-  grid-template-columns: repeat(2, 1fr);
-    
+  @media screen and (min-width: 560px) {
+    grid-template-columns: repeat(2, 250px);
   }
 
-  @media screen and (min-width: 1024px) {
-  grid-template-columns: repeat(3, 1fr);
-    
+  @media screen and (min-width: 850px) {
+    grid-template-columns: repeat(3, 250px);
   }
-  @media screen and (min-width: 1310px) {
-  grid-template-columns: repeat(4, 1fr);
-    
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: repeat(4, 250px);
   }
 }
 .movie {
@@ -171,41 +199,43 @@ export default {
 
   & img {
     height: 446px;
+    width: 250px;
   }
 
   & * {
     margin-bottom: 10px;
   }
 
-		// .movie__img-container
+  // .movie__img-container
 
-		&__img-container {
-        display: flex;
-  flex-direction: column;
-  align-items: center;
-		}
+  &__img-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-		// .movie__link
+  // .movie__year
 
-		// &__link {
-		// }
+  &__year {
+    font-size: 10px;
+  }
 
+  // .movie__title
 
-		// .movie__year
-
-		&__year {
-      font-size: 10px;
-		}
-
-		// .movie__title
-
-		&__title {
-    font-size: 16px;
+  &__title {
+    font-size: 20px;
     color: #42b883;
     text-align: center;
     font-weight: 900;
-		}
+  }
+}
+.favorites-title {
+  text-align: center;
+  color: #fff;
+  font-size: 28px;
 }
 
-
+.toggle-btn {
+  padding: 10px 20px;
+}
 </style>

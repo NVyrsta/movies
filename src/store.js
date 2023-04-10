@@ -4,7 +4,7 @@ export default createStore({
   state: {
     movies: [],
     favorites: [],
-    query: '',
+    query: ''
   },
   mutations: {
     setMovies(state, movies) {
@@ -18,11 +18,16 @@ export default createStore({
         state.favorites = state.favorites.filter(
           (item) => item.imdbID !== movie.imdbID
         );
+        this.commit('saveFavoritesInLocalStorage');
       } else {
         state.favorites.push(movie);
+        this.commit('saveFavoritesInLocalStorage');
       }
-      this.commit('saveFavoritesInLocalStorage');
+      // this.commit('saveFavoritesInLocalStorage');
     },
+    setFavorites(state, favorites) {
+      state.favorites = favorites;
+    }
   },
   actions: {
     async searchMovies({ commit }, query) {
